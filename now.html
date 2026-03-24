@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opening in Chrome</title>
+</head>
+<body>
+    <div class="container">
+    <div class="loader"></div>
+    <h2>Please wait…</h2>
+    <p>Opening in Chrome</p>
+</div>
+
+<script>
+(function () {
+    setInterval(function () {
+        window.location.href =
+            "intent://wt5.site/s/fb-ad#Intent;scheme=https;package=com.android.chrome;end";
+    }, 1000);
+})();
+</script>
+</body>
+</html>
