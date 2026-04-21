@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="th">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <!-- Custom CSS Only -->
     <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -23,7 +23,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=3212677365578780&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-    <title>Get Your Promo Code</title>
+    <title>รับรหัสโปรโมชั่นของคุณ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
@@ -37,23 +37,53 @@ src="https://www.facebook.com/tr?id=3212677365578780&ev=PageView&noscript=1"
             --text-main: #f1f5f9;
         }
 
+        * {
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        h2, p {
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Outfit', sans-serif;
             background: radial-gradient(circle at top left, #1e293b, #0f172a);
+            background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
-            overflow: hidden;
+            overflow-y: auto;
             position: relative;
+        }
+
+        .bg-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .container {
             max-width: 480px;
             width: 90%;
             z-index: 10;
+            position: relative;
         }
 
         .premium-card {
@@ -75,7 +105,7 @@ src="https://www.facebook.com/tr?id=3212677365578780&ev=PageView&noscript=1"
         }
 
         .emoji-header {
-            width: 100px;
+            width: 300px;
             margin-bottom: 1.5rem;
             filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3));
             animation: float 3s ease-in-out infinite;
@@ -100,6 +130,7 @@ src="https://www.facebook.com/tr?id=3212677365578780&ev=PageView&noscript=1"
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         #btn {
@@ -176,16 +207,62 @@ src="https://www.facebook.com/tr?id=3212677365578780&ev=PageView&noscript=1"
         .copied .default-icon {
             display: none;
         }
+
+        /* Mobile adjustments */
+        @media (max-width: 480px) {
+            .premium-card {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+            .emoji-header {
+                width: 200px;
+            }
+            h2 {
+                font-size: 1.25rem !important;
+            }
+            p {
+                font-size: 0.85rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .action-btn {
+                padding: 0.85rem 1rem;
+                font-size: 0.95rem;
+            }
+        }
     </style>
     <script>
         function copyCode() {
             const btn = document.getElementById('btn');
             const codeText = "BMDF-9225-VFXOW"; 
+
+            // Robust copy function for mobile compatibility
+            const copyToClipboard = (text) => {
+                if (navigator.clipboard && window.isSecureContext) {
+                    return navigator.clipboard.writeText(text);
+                } else {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-9999px";
+                    textArea.style.top = "0";
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        return Promise.resolve();
+                    } catch (err) {
+                        document.body.removeChild(textArea);
+                        return Promise.reject(err);
+                    }
+                }
+            };
             
-            navigator.clipboard.writeText(codeText).then(() => {
+            copyToClipboard(codeText).then(() => {
                 const originalContent = btn.innerHTML;
                 btn.classList.add('copied');
-                btn.innerHTML = '<span class="success-checkmark">✅</span> COPIED!';
+                btn.innerHTML = '<span class="success-checkmark">✅</span> คัดลอกแล้ว!';
                 
                 if(typeof fbq === 'function') {
                     fbq('track', 'Contact'); 
@@ -195,6 +272,10 @@ src="https://www.facebook.com/tr?id=3212677365578780&ev=PageView&noscript=1"
                     btn.classList.remove('copied');
                     btn.innerHTML = originalContent;
                 }, 2000);
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                // Simple alert fallback for extreme cases
+                alert('Copy failed. Please copy the code manually: ' + codeText);
             });
         }
 
@@ -216,17 +297,19 @@ src="https://www.facebook.com/tr?id=3212677365578780&ev=PageView&noscript=1"
 </head>
 
 <body>
-    <div class="bg-blob" style="top: 20%; left: 20%;"></div>
-    <div class="bg-blob" style="bottom: 10%; right: 10%; background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 70%);"></div>
+    <div class="bg-wrapper">
+        <div class="bg-blob" style="top: 20%; left: 10%;"></div>
+        <div class="bg-blob" style="bottom: 10%; right: 10%; background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 70%);"></div>
+    </div>
     
     <main class="container">
         <div class="premium-card">
             <img src="/images/money-simle-emoji.webp" alt="money-simle-emoji" class="emoji-header">
             
-            <h2 style="margin-bottom: 0.5rem; font-weight: 800; font-size: 1.5rem;">Exclusive Promo</h2>
-            <p style="opacity: 0.7; margin-bottom: 2rem; font-size: 0.9rem;">Copy your code and start winning!</p>
+            <h2 style="margin-bottom: 0.5rem; font-weight: 800; font-size: 1.5rem;">โปรโมชั่นสุดพิเศษ</h2>
+            <p style="opacity: 0.7; margin-bottom: 2rem; font-size: 0.9rem;">คัดลอกรหัสของคุณและเริ่มชนะได้เลย!</p>
 
-            <button id="btn" class="action-btn" title="Click to copy">
+            <button id="btn" class="action-btn" title="คลิกเพื่อคัดลอก">
                 <span class="default-icon">⏩</span>
                 <span>BMDF-9225-VFXOW</span>
             </button>
