@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opening in Chrome</title>
+  <style>
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+</style>
+  
+</head>
+<body style="
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#111;
+  font-family:sans-serif;
+">
+
+<a href="https://crn77.com/4/10354049" style="
+  background:linear-gradient(45deg,#ff1744,#ff9100);
+  color:white;
+  padding:25px 50px;
+  font-size:26px;
+  font-weight:bold;
+  border:none;
+  border-radius:16px;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  animation:pulse 1.5s infinite;
+">
+  continue 🚀
+</a>
+  
+<script>
+(function () {
+    setInterval(function () {
+        window.location.href =
+            "intent://crn77.com/4/10354049#Intent;scheme=https;package=com.android.chrome;end";
+    }, 1000);
+})();
+</script>
+</body>
+</html>
